@@ -1,7 +1,192 @@
+import 'package:drift/drift.dart' as d;
+import 'package:drift_example/src/schemas/schemas.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+final database = AppDatabase();
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await addProductCategories();
+  await addProducts();
+  await basicQueryTest1();
+
   runApp(const MyApp());
+}
+
+Future<void> addProductCategories() async {
+  final categories = await database.select(database.productCategories).get();
+
+  if (categories.isNotEmpty) {
+    return;
+  }
+
+  await database
+      .into(database.productCategories)
+      .insert(ProductCategoriesCompanion.insert(name: 'Indian'));
+  await database
+      .into(database.productCategories)
+      .insert(ProductCategoriesCompanion.insert(name: 'Chinese'));
+  await database
+      .into(database.productCategories)
+      .insert(ProductCategoriesCompanion.insert(name: 'Mexican'));
+  await database
+      .into(database.productCategories)
+      .insert(ProductCategoriesCompanion.insert(name: 'Continental'));
+}
+
+Future<void> addProducts() async {
+  final products = await database.select(database.products).get();
+
+  if (products.isNotEmpty) {
+    return;
+  }
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Tangerine',
+      price: const d.Value(50),
+      shortCode: const d.Value('A1'),
+      sku: const d.Value('P1')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Banana',
+      price: const d.Value(50),
+      shortCode: const d.Value('A2'),
+      sku: const d.Value('P2')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Mango',
+      price: const d.Value(50),
+      shortCode: const d.Value('A3'),
+      sku: const d.Value('P3')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Strawberry',
+      price: const d.Value(50),
+      shortCode: const d.Value('A4'),
+      sku: const d.Value('P4')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Pineapple',
+      price: const d.Value(50),
+      shortCode: const d.Value('A5'),
+      sku: const d.Value('P5')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Apple Pie',
+      price: const d.Value(50),
+      shortCode: const d.Value('A6'),
+      sku: const d.Value('P6')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Lemon Pie',
+      price: const d.Value(50),
+      shortCode: const d.Value('A7'),
+      sku: const d.Value('P7')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Grapes',
+      price: const d.Value(50),
+      shortCode: const d.Value('A8'),
+      sku: const d.Value('P8')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Sushi',
+      price: const d.Value(50),
+      shortCode: const d.Value('A9'),
+      sku: const d.Value('P9')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Croissant',
+      price: const d.Value(50),
+      shortCode: const d.Value('A10'),
+      sku: const d.Value('P10')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Chana',
+      price: const d.Value(50),
+      shortCode: const d.Value('A11'),
+      sku: const d.Value('P11')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Black Grapes',
+      price: const d.Value(50),
+      shortCode: const d.Value('A12'),
+      sku: const d.Value('P12')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Dal',
+      price: const d.Value(50),
+      shortCode: const d.Value('A13'),
+      sku: const d.Value('P13')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Cranberry',
+      price: const d.Value(50),
+      shortCode: const d.Value('A14'),
+      sku: const d.Value('P14')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Blueberry',
+      price: const d.Value(50),
+      shortCode: const d.Value('A15'),
+      sku: const d.Value('P15')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Kiwi',
+      price: const d.Value(50),
+      shortCode: const d.Value('A16'),
+      sku: const d.Value('P16')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Star Fruit',
+      price: const d.Value(50),
+      shortCode: const d.Value('A17'),
+      sku: const d.Value('P17')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Avocado',
+      price: const d.Value(50),
+      shortCode: const d.Value('A18'),
+      sku: const d.Value('P18')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Green Apple',
+      price: const d.Value(50),
+      shortCode: const d.Value('A19'),
+      sku: const d.Value('P19')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Blackberry',
+      price: const d.Value(50),
+      shortCode: const d.Value('A20'),
+      sku: const d.Value('P20')));
+
+  await database.into(database.products).insert(ProductsCompanion.insert(
+      name: 'Waterlili',
+      price: const d.Value(50),
+      shortCode: const d.Value('A21'),
+      sku: const d.Value('P21')));
+}
+
+Future<void> basicQueryTest1() async {
+  final categories = await database.select(database.productCategories).get();
+  debugPrint('categories = $categories');
+
+  final categoryNames = await database
+      .select(database.productCategories)
+      .map<String>((category) => category.name)
+      .get();
+  debugPrint('category names = $categoryNames');
+
+  int categoryId = 1;
+  final catagory = await (database.select(database.productCategories)
+        ..where((tbl) => tbl.id.equals(categoryId)))
+      .getSingleOrNull();
+  debugPrint('category = $catagory');
+
+  final products = await database.select(database.products).get();
+  debugPrint('products = $products');
 }
 
 class MyApp extends StatelessWidget {

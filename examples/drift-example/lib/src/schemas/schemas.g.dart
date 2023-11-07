@@ -3,12 +3,11 @@
 part of 'schemas.dart';
 
 // ignore_for_file: type=lint
-class $ProductTableTable extends ProductTable
-    with TableInfo<$ProductTableTable, ProductTableData> {
+class $ProductsTable extends Products with TableInfo<$ProductsTable, Product> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $ProductTableTable(this.attachedDatabase, [this._alias]);
+  $ProductsTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -22,7 +21,9 @@ class $ProductTableTable extends ProductTable
   @override
   late final GeneratedColumn<String> prodId = GeneratedColumn<String>(
       'prod_id', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
@@ -39,13 +40,17 @@ class $ProductTableTable extends ProductTable
   @override
   late final GeneratedColumn<String> sku = GeneratedColumn<String>(
       'sku', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
   static const VerificationMeta _shortCodeMeta =
       const VerificationMeta('shortCode');
   @override
   late final GeneratedColumn<String> shortCode = GeneratedColumn<String>(
       'short_code', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
   static const VerificationMeta _imageMeta = const VerificationMeta('image');
   @override
   late final GeneratedColumn<String> image = GeneratedColumn<String>(
@@ -67,9 +72,9 @@ class $ProductTableTable extends ProductTable
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'product_table';
+  static const String $name = 'products';
   @override
-  VerificationContext validateIntegrity(Insertable<ProductTableData> instance,
+  VerificationContext validateIntegrity(Insertable<Product> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -112,9 +117,9 @@ class $ProductTableTable extends ProductTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  ProductTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  Product map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return ProductTableData(
+    return Product(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       prodId: attachedDatabase.typeMapping
@@ -135,13 +140,12 @@ class $ProductTableTable extends ProductTable
   }
 
   @override
-  $ProductTableTable createAlias(String alias) {
-    return $ProductTableTable(attachedDatabase, alias);
+  $ProductsTable createAlias(String alias) {
+    return $ProductsTable(attachedDatabase, alias);
   }
 }
 
-class ProductTableData extends DataClass
-    implements Insertable<ProductTableData> {
+class Product extends DataClass implements Insertable<Product> {
   final int id;
   final String? prodId;
   final String name;
@@ -150,7 +154,7 @@ class ProductTableData extends DataClass
   final String? shortCode;
   final String? image;
   final bool status;
-  const ProductTableData(
+  const Product(
       {required this.id,
       this.prodId,
       required this.name,
@@ -181,8 +185,8 @@ class ProductTableData extends DataClass
     return map;
   }
 
-  ProductTableCompanion toCompanion(bool nullToAbsent) {
-    return ProductTableCompanion(
+  ProductsCompanion toCompanion(bool nullToAbsent) {
+    return ProductsCompanion(
       id: Value(id),
       prodId:
           prodId == null && nullToAbsent ? const Value.absent() : Value(prodId),
@@ -198,10 +202,10 @@ class ProductTableData extends DataClass
     );
   }
 
-  factory ProductTableData.fromJson(Map<String, dynamic> json,
+  factory Product.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return ProductTableData(
+    return Product(
       id: serializer.fromJson<int>(json['id']),
       prodId: serializer.fromJson<String?>(json['prodId']),
       name: serializer.fromJson<String>(json['name']),
@@ -227,7 +231,7 @@ class ProductTableData extends DataClass
     };
   }
 
-  ProductTableData copyWith(
+  Product copyWith(
           {int? id,
           Value<String?> prodId = const Value.absent(),
           String? name,
@@ -236,7 +240,7 @@ class ProductTableData extends DataClass
           Value<String?> shortCode = const Value.absent(),
           Value<String?> image = const Value.absent(),
           bool? status}) =>
-      ProductTableData(
+      Product(
         id: id ?? this.id,
         prodId: prodId.present ? prodId.value : this.prodId,
         name: name ?? this.name,
@@ -248,7 +252,7 @@ class ProductTableData extends DataClass
       );
   @override
   String toString() {
-    return (StringBuffer('ProductTableData(')
+    return (StringBuffer('Product(')
           ..write('id: $id, ')
           ..write('prodId: $prodId, ')
           ..write('name: $name, ')
@@ -267,7 +271,7 @@ class ProductTableData extends DataClass
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is ProductTableData &&
+      (other is Product &&
           other.id == this.id &&
           other.prodId == this.prodId &&
           other.name == this.name &&
@@ -278,7 +282,7 @@ class ProductTableData extends DataClass
           other.status == this.status);
 }
 
-class ProductTableCompanion extends UpdateCompanion<ProductTableData> {
+class ProductsCompanion extends UpdateCompanion<Product> {
   final Value<int> id;
   final Value<String?> prodId;
   final Value<String> name;
@@ -287,7 +291,7 @@ class ProductTableCompanion extends UpdateCompanion<ProductTableData> {
   final Value<String?> shortCode;
   final Value<String?> image;
   final Value<bool> status;
-  const ProductTableCompanion({
+  const ProductsCompanion({
     this.id = const Value.absent(),
     this.prodId = const Value.absent(),
     this.name = const Value.absent(),
@@ -297,7 +301,7 @@ class ProductTableCompanion extends UpdateCompanion<ProductTableData> {
     this.image = const Value.absent(),
     this.status = const Value.absent(),
   });
-  ProductTableCompanion.insert({
+  ProductsCompanion.insert({
     this.id = const Value.absent(),
     this.prodId = const Value.absent(),
     required String name,
@@ -307,7 +311,7 @@ class ProductTableCompanion extends UpdateCompanion<ProductTableData> {
     this.image = const Value.absent(),
     this.status = const Value.absent(),
   }) : name = Value(name);
-  static Insertable<ProductTableData> custom({
+  static Insertable<Product> custom({
     Expression<int>? id,
     Expression<String>? prodId,
     Expression<String>? name,
@@ -329,7 +333,7 @@ class ProductTableCompanion extends UpdateCompanion<ProductTableData> {
     });
   }
 
-  ProductTableCompanion copyWith(
+  ProductsCompanion copyWith(
       {Value<int>? id,
       Value<String?>? prodId,
       Value<String>? name,
@@ -338,7 +342,7 @@ class ProductTableCompanion extends UpdateCompanion<ProductTableData> {
       Value<String?>? shortCode,
       Value<String?>? image,
       Value<bool>? status}) {
-    return ProductTableCompanion(
+    return ProductsCompanion(
       id: id ?? this.id,
       prodId: prodId ?? this.prodId,
       name: name ?? this.name,
@@ -382,7 +386,7 @@ class ProductTableCompanion extends UpdateCompanion<ProductTableData> {
 
   @override
   String toString() {
-    return (StringBuffer('ProductTableCompanion(')
+    return (StringBuffer('ProductsCompanion(')
           ..write('id: $id, ')
           ..write('prodId: $prodId, ')
           ..write('name: $name, ')
@@ -396,12 +400,262 @@ class ProductTableCompanion extends UpdateCompanion<ProductTableData> {
   }
 }
 
+class $ProductCategoriesTable extends ProductCategories
+    with TableInfo<$ProductCategoriesTable, ProductCategory> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ProductCategoriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _catIdMeta = const VerificationMeta('catId');
+  @override
+  late final GeneratedColumn<String> catId = GeneratedColumn<String>(
+      'cat_id', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<bool> status = GeneratedColumn<bool>(
+      'status', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("status" IN (0, 1))'),
+      defaultValue: const Constant(true));
+  @override
+  List<GeneratedColumn> get $columns => [id, catId, name, status];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'product_categories';
+  @override
+  VerificationContext validateIntegrity(Insertable<ProductCategory> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('cat_id')) {
+      context.handle(
+          _catIdMeta, catId.isAcceptableOrUnknown(data['cat_id']!, _catIdMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('status')) {
+      context.handle(_statusMeta,
+          status.isAcceptableOrUnknown(data['status']!, _statusMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ProductCategory map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ProductCategory(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      catId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}cat_id']),
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      status: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}status'])!,
+    );
+  }
+
+  @override
+  $ProductCategoriesTable createAlias(String alias) {
+    return $ProductCategoriesTable(attachedDatabase, alias);
+  }
+}
+
+class ProductCategory extends DataClass implements Insertable<ProductCategory> {
+  final int id;
+  final String? catId;
+  final String name;
+  final bool status;
+  const ProductCategory(
+      {required this.id, this.catId, required this.name, required this.status});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    if (!nullToAbsent || catId != null) {
+      map['cat_id'] = Variable<String>(catId);
+    }
+    map['name'] = Variable<String>(name);
+    map['status'] = Variable<bool>(status);
+    return map;
+  }
+
+  ProductCategoriesCompanion toCompanion(bool nullToAbsent) {
+    return ProductCategoriesCompanion(
+      id: Value(id),
+      catId:
+          catId == null && nullToAbsent ? const Value.absent() : Value(catId),
+      name: Value(name),
+      status: Value(status),
+    );
+  }
+
+  factory ProductCategory.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ProductCategory(
+      id: serializer.fromJson<int>(json['id']),
+      catId: serializer.fromJson<String?>(json['catId']),
+      name: serializer.fromJson<String>(json['name']),
+      status: serializer.fromJson<bool>(json['status']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'catId': serializer.toJson<String?>(catId),
+      'name': serializer.toJson<String>(name),
+      'status': serializer.toJson<bool>(status),
+    };
+  }
+
+  ProductCategory copyWith(
+          {int? id,
+          Value<String?> catId = const Value.absent(),
+          String? name,
+          bool? status}) =>
+      ProductCategory(
+        id: id ?? this.id,
+        catId: catId.present ? catId.value : this.catId,
+        name: name ?? this.name,
+        status: status ?? this.status,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('ProductCategory(')
+          ..write('id: $id, ')
+          ..write('catId: $catId, ')
+          ..write('name: $name, ')
+          ..write('status: $status')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, catId, name, status);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ProductCategory &&
+          other.id == this.id &&
+          other.catId == this.catId &&
+          other.name == this.name &&
+          other.status == this.status);
+}
+
+class ProductCategoriesCompanion extends UpdateCompanion<ProductCategory> {
+  final Value<int> id;
+  final Value<String?> catId;
+  final Value<String> name;
+  final Value<bool> status;
+  const ProductCategoriesCompanion({
+    this.id = const Value.absent(),
+    this.catId = const Value.absent(),
+    this.name = const Value.absent(),
+    this.status = const Value.absent(),
+  });
+  ProductCategoriesCompanion.insert({
+    this.id = const Value.absent(),
+    this.catId = const Value.absent(),
+    required String name,
+    this.status = const Value.absent(),
+  }) : name = Value(name);
+  static Insertable<ProductCategory> custom({
+    Expression<int>? id,
+    Expression<String>? catId,
+    Expression<String>? name,
+    Expression<bool>? status,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (catId != null) 'cat_id': catId,
+      if (name != null) 'name': name,
+      if (status != null) 'status': status,
+    });
+  }
+
+  ProductCategoriesCompanion copyWith(
+      {Value<int>? id,
+      Value<String?>? catId,
+      Value<String>? name,
+      Value<bool>? status}) {
+    return ProductCategoriesCompanion(
+      id: id ?? this.id,
+      catId: catId ?? this.catId,
+      name: name ?? this.name,
+      status: status ?? this.status,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (catId.present) {
+      map['cat_id'] = Variable<String>(catId.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<bool>(status.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ProductCategoriesCompanion(')
+          ..write('id: $id, ')
+          ..write('catId: $catId, ')
+          ..write('name: $name, ')
+          ..write('status: $status')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
-  late final $ProductTableTable productTable = $ProductTableTable(this);
+  late final $ProductsTable products = $ProductsTable(this);
+  late final $ProductCategoriesTable productCategories =
+      $ProductCategoriesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [productTable];
+  List<DatabaseSchemaEntity> get allSchemaEntities =>
+      [products, productCategories];
 }
