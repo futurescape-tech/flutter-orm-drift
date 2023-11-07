@@ -20,6 +20,16 @@ class ProductTable extends Table {
   BoolColumn get status => boolean().withDefault(const Constant(false))();
 }
 
+class ParkedBills extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get billId => text().nullable()();
+  TextColumn get billName => text().nullable()();
+  RealColumn get subtotal => real().withDefault(const Constant(0))();
+  RealColumn get discount => real().withDefault(const Constant(0))();
+  RealColumn get tax => real().withDefault(const Constant(0))();
+  RealColumn get netAmount => real().withDefault(const Constant(0))();
+}
+
 @DriftDatabase(tables: [ProductTable])
 class AppDatabase extends _$AppDatabase {
 
