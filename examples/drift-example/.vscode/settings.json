@@ -1,0 +1,11 @@
+{
+    "sqltools.useNodeRuntime": true,
+    "sqltools.connections": [
+        {
+            "previewLimit": 100,
+            "driver": "SQLite",
+            "name": "db",
+            "database": "/Users/suresh/Desktop/flutter_projects/migration/flutter-orm-drift-databases/db.sqlite"
+        }
+    ]
+}
