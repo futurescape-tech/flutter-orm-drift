@@ -187,6 +187,46 @@ Future<void> basicQueryTest1() async {
 
   final products = await database.select(database.products).get();
   debugPrint('products = $products');
+
+  final products1 = await (database.select(database.products)
+        ..where((tbl) => tbl.price.isBiggerOrEqual(const d.Constant(50))))
+      .get();
+  debugPrint('products1 = $products1');
+
+  final products2 = await (database.select(database.products)
+        ..where((tbl) => tbl.id.isIn(<int>[1, 2, 3])))
+      .get();
+  debugPrint('products2 = $products2');
+
+  final products3 = await (database.select(database.products)
+        ..where((tbl) => tbl.id.isInExp(<d.Expression<int>>[
+              const d.Constant(4),
+              const d.Constant(5),
+              const d.Constant(6)
+            ])))
+      .get();
+  debugPrint('products3 = $products3');
+  
+  final products4 = await (database.select(database.products)
+  ..where((tbl) => tbl.name.likeExp(const d.Constant('%pie')))
+  ).get();
+  debugPrint('products4 = $products4');
+
+  final products5 = await (database.select(database.products)
+    ..where((tbl) => tbl.name.likeExp(const d.Constant('%apple'))
+        | tbl.name.likeExp(const d.Constant('%berry')))
+  ).get();
+  debugPrint('products5 = $products5');
+  
+  final products6 = await (database.select(database.products)
+  ..where((tbl) => d.Expression.or(
+    <d.Expression<bool>>[
+      tbl.name.likeExp(const d.Constant('%apple')),
+      tbl.name.likeExp(const d.Constant('%pie')),
+      tbl.name.likeExp(const d.Constant('%berry'))
+    ]
+  ))).get();
+  debugPrint('products6 = $products6');
 }
 
 class MyApp extends StatelessWidget {
