@@ -9,6 +9,11 @@ void main() async {
 
   await addProductCategories();
   await addProducts();
+  await addProductCategoryLinks();
+  await addParkedBills();
+  await addParkedBillItems();
+  await addParkedBillItemTaxes();
+
   await basicQueryTest1();
 
   runApp(const MyApp());
@@ -170,83 +175,414 @@ Future<void> addProducts() async {
 }
 
 Future<void> addProductCategoryLinks() async {
-  await database.into(database.productCategoryLinks)
-      .insert(ProductCategoryLinksCompanion.insert(
-      pLocalCatId: 1,
-      pLocalProdId: 1));
-  await database.into(database.productCategoryLinks)
-      .insert(ProductCategoryLinksCompanion.insert(
-      pLocalCatId: 1,
-      pLocalProdId: 2));
-  await database.into(database.productCategoryLinks)
-      .insert(ProductCategoryLinksCompanion.insert(
-      pLocalCatId: 1,
-      pLocalProdId: 3));
+  final links = await database.select(database.productCategoryLinks).get();
+  if (links.isNotEmpty) {
+    return;
+  }
 
-  await database.into(database.productCategoryLinks)
-      .insert(ProductCategoryLinksCompanion.insert(
-      pLocalCatId: 2,
-      pLocalProdId: 4));
-  await database.into(database.productCategoryLinks)
-      .insert(ProductCategoryLinksCompanion.insert(
-      pLocalCatId: 2,
-      pLocalProdId: 5));
-  await database.into(database.productCategoryLinks)
-      .insert(ProductCategoryLinksCompanion.insert(
-      pLocalCatId: 2,
-      pLocalProdId: 6));
-  await database.into(database.productCategoryLinks)
-      .insert(ProductCategoryLinksCompanion.insert(
-      pLocalCatId: 2,
-      pLocalProdId: 7));
+  await database.into(database.productCategoryLinks).insert(
+      ProductCategoryLinksCompanion.insert(pLocalCatId: 1, pLocalProdId: 1));
+  await database.into(database.productCategoryLinks).insert(
+      ProductCategoryLinksCompanion.insert(pLocalCatId: 1, pLocalProdId: 2));
+  await database.into(database.productCategoryLinks).insert(
+      ProductCategoryLinksCompanion.insert(pLocalCatId: 1, pLocalProdId: 3));
 
-  await database.into(database.productCategoryLinks)
-      .insert(ProductCategoryLinksCompanion.insert(
-      pLocalCatId: 3,
-      pLocalProdId: 8));
-  await database.into(database.productCategoryLinks)
-      .insert(ProductCategoryLinksCompanion.insert(
-      pLocalCatId: 3,
-      pLocalProdId: 9));
-  await database.into(database.productCategoryLinks)
-      .insert(ProductCategoryLinksCompanion.insert(
-      pLocalCatId: 3,
-      pLocalProdId: 10));
-  await database.into(database.productCategoryLinks)
-      .insert(ProductCategoryLinksCompanion.insert(
-      pLocalCatId: 3,
-      pLocalProdId: 11));
-  await database.into(database.productCategoryLinks)
-      .insert(ProductCategoryLinksCompanion.insert(
-      pLocalCatId: 3,
-      pLocalProdId: 12));
-  await database.into(database.productCategoryLinks)
-      .insert(ProductCategoryLinksCompanion.insert(
-      pLocalCatId: 3,
-      pLocalProdId: 13));
+  await database.into(database.productCategoryLinks).insert(
+      ProductCategoryLinksCompanion.insert(pLocalCatId: 2, pLocalProdId: 4));
+  await database.into(database.productCategoryLinks).insert(
+      ProductCategoryLinksCompanion.insert(pLocalCatId: 2, pLocalProdId: 5));
+  await database.into(database.productCategoryLinks).insert(
+      ProductCategoryLinksCompanion.insert(pLocalCatId: 2, pLocalProdId: 6));
+  await database.into(database.productCategoryLinks).insert(
+      ProductCategoryLinksCompanion.insert(pLocalCatId: 2, pLocalProdId: 7));
 
-  await database.into(database.productCategoryLinks)
-      .insert(ProductCategoryLinksCompanion.insert(
-      pLocalCatId: 4,
-      pLocalProdId: 15));
-  await database.into(database.productCategoryLinks)
-      .insert(ProductCategoryLinksCompanion.insert(
-      pLocalCatId: 4,
-      pLocalProdId: 17));
+  await database.into(database.productCategoryLinks).insert(
+      ProductCategoryLinksCompanion.insert(pLocalCatId: 3, pLocalProdId: 8));
+  await database.into(database.productCategoryLinks).insert(
+      ProductCategoryLinksCompanion.insert(pLocalCatId: 3, pLocalProdId: 9));
+  await database.into(database.productCategoryLinks).insert(
+      ProductCategoryLinksCompanion.insert(pLocalCatId: 3, pLocalProdId: 10));
+  await database.into(database.productCategoryLinks).insert(
+      ProductCategoryLinksCompanion.insert(pLocalCatId: 3, pLocalProdId: 11));
+  await database.into(database.productCategoryLinks).insert(
+      ProductCategoryLinksCompanion.insert(pLocalCatId: 3, pLocalProdId: 12));
+  await database.into(database.productCategoryLinks).insert(
+      ProductCategoryLinksCompanion.insert(pLocalCatId: 3, pLocalProdId: 13));
+
+  await database.into(database.productCategoryLinks).insert(
+      ProductCategoryLinksCompanion.insert(pLocalCatId: 4, pLocalProdId: 15));
+  await database.into(database.productCategoryLinks).insert(
+      ProductCategoryLinksCompanion.insert(pLocalCatId: 4, pLocalProdId: 17));
 }
 
 Future<void> addParkedBills() async {
+  final parkedBills = await database.select(database.parkedBills).get();
+  if (parkedBills.isNotEmpty) {
+    return;
+  }
 
+  await database.into(database.parkedBills).insert(ParkedBillsCompanion.insert(
+      billName: const d.Value('Wisconsin 101'),
+      subtotal: const d.Value(500),
+      netAmount: const d.Value(200),
+      tax: const d.Value(20),
+      discount: const d.Value(10)));
+  await database.into(database.parkedBills).insert(ParkedBillsCompanion.insert(
+      billName: const d.Value('Florida 102'),
+      subtotal: const d.Value(500),
+      netAmount: const d.Value(200),
+      tax: const d.Value(20),
+      discount: const d.Value(10)));
+  await database.into(database.parkedBills).insert(ParkedBillsCompanion.insert(
+      billName: const d.Value('Illinois 103'),
+      subtotal: const d.Value(500),
+      netAmount: const d.Value(200),
+      tax: const d.Value(20),
+      discount: const d.Value(10)));
+  await database.into(database.parkedBills).insert(ParkedBillsCompanion.insert(
+      billName: const d.Value('Washington 104'),
+      subtotal: const d.Value(500),
+      netAmount: const d.Value(200),
+      tax: const d.Value(20),
+      discount: const d.Value(10)));
+  await database.into(database.parkedBills).insert(ParkedBillsCompanion.insert(
+      billName: const d.Value('California 105'),
+      subtotal: const d.Value(500),
+      netAmount: const d.Value(200),
+      tax: const d.Value(20),
+      discount: const d.Value(10)));
+  await database.into(database.parkedBills).insert(ParkedBillsCompanion.insert(
+      billName: const d.Value('New Jersey 106'),
+      subtotal: const d.Value(500),
+      netAmount: const d.Value(200),
+      tax: const d.Value(20),
+      discount: const d.Value(10)));
 }
 
 Future<void> addParkedBillItems() async {
+  final parkedBillItems = await database.select(database.parkedBillItems).get();
+  if (parkedBillItems.isNotEmpty) {
+    return;
+  }
 
+  await database
+      .into(database.parkedBillItems)
+      .insert(ParkedBillItemsCompanion.insert(
+        pLocalBillId: 1,
+        name: 'Milwaukee',
+        subtotal: const d.Value(500),
+        netAmount: const d.Value(200),
+        tax: const d.Value(20),
+        discount: const d.Value(10),
+        quantity: const d.Value(3),
+      ));
+  await database
+      .into(database.parkedBillItems)
+      .insert(ParkedBillItemsCompanion.insert(
+        pLocalBillId: 1,
+        name: 'Madison',
+        subtotal: const d.Value(500),
+        netAmount: const d.Value(200),
+        tax: const d.Value(20),
+        discount: const d.Value(10),
+        quantity: const d.Value(3),
+      ));
+
+  await database
+      .into(database.parkedBillItems)
+      .insert(ParkedBillItemsCompanion.insert(
+        pLocalBillId: 2,
+        name: 'Miami',
+        subtotal: const d.Value(500),
+        netAmount: const d.Value(200),
+        tax: const d.Value(20),
+        discount: const d.Value(10),
+        quantity: const d.Value(2),
+      ));
+  await database
+      .into(database.parkedBillItems)
+      .insert(ParkedBillItemsCompanion.insert(
+        pLocalBillId: 2,
+        name: 'Orlando',
+        subtotal: const d.Value(500),
+        netAmount: const d.Value(200),
+        tax: const d.Value(20),
+        discount: const d.Value(10),
+        quantity: const d.Value(2),
+      ));
+  await database
+      .into(database.parkedBillItems)
+      .insert(ParkedBillItemsCompanion.insert(
+        pLocalBillId: 2,
+        name: 'Fort Lauderdale',
+        subtotal: const d.Value(500),
+        netAmount: const d.Value(200),
+        tax: const d.Value(20),
+        discount: const d.Value(10),
+        quantity: const d.Value(1),
+      ));
+  await database
+      .into(database.parkedBillItems)
+      .insert(ParkedBillItemsCompanion.insert(
+        pLocalBillId: 2,
+        name: 'Tampa',
+        subtotal: const d.Value(500),
+        netAmount: const d.Value(200),
+        tax: const d.Value(20),
+        discount: const d.Value(10),
+        quantity: const d.Value(1),
+      ));
+  await database
+      .into(database.parkedBillItems)
+      .insert(ParkedBillItemsCompanion.insert(
+        pLocalBillId: 2,
+        name: 'Daytona',
+        subtotal: const d.Value(500),
+        netAmount: const d.Value(200),
+        tax: const d.Value(20),
+        discount: const d.Value(10),
+        quantity: const d.Value(1),
+      ));
+
+  await database
+      .into(database.parkedBillItems)
+      .insert(ParkedBillItemsCompanion.insert(
+        pLocalBillId: 3,
+        name: 'Chicago',
+        subtotal: const d.Value(500),
+        netAmount: const d.Value(200),
+        tax: const d.Value(20),
+        discount: const d.Value(10),
+        quantity: const d.Value(3),
+      ));
+
+  await database
+      .into(database.parkedBillItems)
+      .insert(ParkedBillItemsCompanion.insert(
+        pLocalBillId: 4,
+        name: 'Seattle',
+        subtotal: const d.Value(500),
+        netAmount: const d.Value(200),
+        tax: const d.Value(20),
+        discount: const d.Value(10),
+        quantity: const d.Value(3),
+      ));
+  await database
+      .into(database.parkedBillItems)
+      .insert(ParkedBillItemsCompanion.insert(
+        pLocalBillId: 4,
+        name: 'Everett',
+        subtotal: const d.Value(500),
+        netAmount: const d.Value(200),
+        tax: const d.Value(20),
+        discount: const d.Value(10),
+        quantity: const d.Value(1),
+      ));
+
+  await database
+      .into(database.parkedBillItems)
+      .insert(ParkedBillItemsCompanion.insert(
+        pLocalBillId: 5,
+        name: 'San Francisco',
+        subtotal: const d.Value(500),
+        netAmount: const d.Value(200),
+        tax: const d.Value(20),
+        discount: const d.Value(10),
+        quantity: const d.Value(3),
+      ));
+  await database
+      .into(database.parkedBillItems)
+      .insert(ParkedBillItemsCompanion.insert(
+        pLocalBillId: 5,
+        name: 'Los Angeles',
+        subtotal: const d.Value(500),
+        netAmount: const d.Value(200),
+        tax: const d.Value(20),
+        discount: const d.Value(10),
+        quantity: const d.Value(4),
+      ));
+  await database
+      .into(database.parkedBillItems)
+      .insert(ParkedBillItemsCompanion.insert(
+        pLocalBillId: 5,
+        name: 'San Diego',
+        subtotal: const d.Value(500),
+        netAmount: const d.Value(200),
+        tax: const d.Value(20),
+        discount: const d.Value(10),
+        quantity: const d.Value(3),
+      ));
+  await database
+      .into(database.parkedBillItems)
+      .insert(ParkedBillItemsCompanion.insert(
+        pLocalBillId: 5,
+        name: 'San Jose',
+        subtotal: const d.Value(500),
+        netAmount: const d.Value(200),
+        tax: const d.Value(20),
+        discount: const d.Value(10),
+        quantity: const d.Value(1),
+      ));
+  await database
+      .into(database.parkedBillItems)
+      .insert(ParkedBillItemsCompanion.insert(
+        pLocalBillId: 5,
+        name: 'Danville',
+        subtotal: const d.Value(500),
+        netAmount: const d.Value(200),
+        tax: const d.Value(20),
+        discount: const d.Value(10),
+        quantity: const d.Value(3),
+      ));
+  await database
+      .into(database.parkedBillItems)
+      .insert(ParkedBillItemsCompanion.insert(
+        pLocalBillId: 5,
+        name: 'Glendale',
+        subtotal: const d.Value(500),
+        netAmount: const d.Value(200),
+        tax: const d.Value(20),
+        discount: const d.Value(10),
+        quantity: const d.Value(1),
+      ));
 }
 
 Future<void> addParkedBillItemTaxes() async {
+  final parkedBillItemTaxes = await database.select(database.parkedBillItemTaxes).get();
+  if (parkedBillItemTaxes.isNotEmpty) {
+    return;
+  }
 
+  await database.into(database.parkedBillItemTaxes).insert(
+      ParkedBillItemTaxesCompanion.insert(
+          pLocalItemId: 1,
+          name: 'GST 12',
+          method: 'exclusive',
+          tax: const d.Value(10)));
+  await database.into(database.parkedBillItemTaxes).insert(
+      ParkedBillItemTaxesCompanion.insert(
+          pLocalItemId: 1,
+          name: 'GST 5',
+          method: 'exclusive',
+          tax: const d.Value(5)));
+  await database.into(database.parkedBillItemTaxes).insert(
+      ParkedBillItemTaxesCompanion.insert(
+          pLocalItemId: 1,
+          name: 'GST 9',
+          method: 'exclusive',
+          tax: const d.Value(12)));
+
+  await database.into(database.parkedBillItemTaxes).insert(
+      ParkedBillItemTaxesCompanion.insert(
+          pLocalItemId: 2,
+          name: 'GST 12',
+          method: 'exclusive',
+          tax: const d.Value(10)));
+
+  await database.into(database.parkedBillItemTaxes).insert(
+      ParkedBillItemTaxesCompanion.insert(
+          pLocalItemId: 3,
+          name: 'GST 12',
+          method: 'exclusive',
+          tax: const d.Value(10)));
+
+  await database.into(database.parkedBillItemTaxes).insert(
+      ParkedBillItemTaxesCompanion.insert(
+          pLocalItemId: 4,
+          name: 'GST 12',
+          method: 'exclusive',
+          tax: const d.Value(10)));
+
+  await database.into(database.parkedBillItemTaxes).insert(
+      ParkedBillItemTaxesCompanion.insert(
+          pLocalItemId: 5,
+          name: 'GST 12',
+          method: 'exclusive',
+          tax: const d.Value(10)));
+
+  await database.into(database.parkedBillItemTaxes).insert(
+      ParkedBillItemTaxesCompanion.insert(
+          pLocalItemId: 6,
+          name: 'GST 12',
+          method: 'exclusive',
+          tax: const d.Value(10)));
+
+  await database.into(database.parkedBillItemTaxes).insert(
+      ParkedBillItemTaxesCompanion.insert(
+          pLocalItemId: 7,
+          name: 'GST 12',
+          method: 'exclusive',
+          tax: const d.Value(10)));
+
+  await database.into(database.parkedBillItemTaxes).insert(
+      ParkedBillItemTaxesCompanion.insert(
+          pLocalItemId: 8,
+          name: 'GST 12',
+          method: 'exclusive',
+          tax: const d.Value(10)));
+
+  await database.into(database.parkedBillItemTaxes).insert(
+      ParkedBillItemTaxesCompanion.insert(
+          pLocalItemId: 9,
+          name: 'GST 12',
+          method: 'exclusive',
+          tax: const d.Value(10)));
+
+  await database.into(database.parkedBillItemTaxes).insert(
+      ParkedBillItemTaxesCompanion.insert(
+          pLocalItemId: 10,
+          name: 'GST 12',
+          method: 'exclusive',
+          tax: const d.Value(10)));
+
+  await database.into(database.parkedBillItemTaxes).insert(
+      ParkedBillItemTaxesCompanion.insert(
+          pLocalItemId: 11,
+          name: 'GST 12',
+          method: 'exclusive',
+          tax: const d.Value(10)));
+
+  await database.into(database.parkedBillItemTaxes).insert(
+      ParkedBillItemTaxesCompanion.insert(
+          pLocalItemId: 12,
+          name: 'GST 12',
+          method: 'exclusive',
+          tax: const d.Value(10)));
+  await database.into(database.parkedBillItemTaxes).insert(
+      ParkedBillItemTaxesCompanion.insert(
+          pLocalItemId: 12,
+          name: 'GST 18',
+          method: 'exclusive',
+          tax: const d.Value(20)));
+
+  await database.into(database.parkedBillItemTaxes).insert(
+      ParkedBillItemTaxesCompanion.insert(
+          pLocalItemId: 13,
+          name: 'GST 12',
+          method: 'exclusive',
+          tax: const d.Value(10)));
+
+  await database.into(database.parkedBillItemTaxes).insert(
+      ParkedBillItemTaxesCompanion.insert(
+          pLocalItemId: 14,
+          name: 'GST 12',
+          method: 'exclusive',
+          tax: const d.Value(10)));
+
+  await database.into(database.parkedBillItemTaxes).insert(
+      ParkedBillItemTaxesCompanion.insert(
+          pLocalItemId: 15,
+          name: 'GST 12',
+          method: 'exclusive',
+          tax: const d.Value(10)));
+
+  await database.into(database.parkedBillItemTaxes).insert(
+      ParkedBillItemTaxesCompanion.insert(
+          pLocalItemId: 16,
+          name: 'GST 12',
+          method: 'exclusive',
+          tax: const d.Value(10)));
 }
-
 
 Future<void> basicQueryTest1() async {
   final categories = await database.select(database.productCategories).get();
@@ -285,27 +621,39 @@ Future<void> basicQueryTest1() async {
             ])))
       .get();
   debugPrint('products3 = $products3');
-  
+
   final products4 = await (database.select(database.products)
-  ..where((tbl) => tbl.name.likeExp(const d.Constant('%pie')))
-  ).get();
+        ..where((tbl) => tbl.name.likeExp(const d.Constant('%pie'))))
+      .get();
   debugPrint('products4 = $products4');
 
   final products5 = await (database.select(database.products)
-    ..where((tbl) => tbl.name.likeExp(const d.Constant('%apple'))
-        | tbl.name.likeExp(const d.Constant('%berry')))
-  ).get();
+        ..where((tbl) =>
+            tbl.name.likeExp(const d.Constant('%apple')) |
+            tbl.name.likeExp(const d.Constant('%berry'))))
+      .get();
   debugPrint('products5 = $products5');
-  
+
   final products6 = await (database.select(database.products)
-  ..where((tbl) => d.Expression.or(
-    <d.Expression<bool>>[
-      tbl.name.likeExp(const d.Constant('%apple')),
-      tbl.name.likeExp(const d.Constant('%pie')),
-      tbl.name.likeExp(const d.Constant('%berry'))
-    ]
-  ))).get();
+        ..where((tbl) => d.Expression.or(<d.Expression<bool>>[
+              tbl.name.likeExp(const d.Constant('%apple')),
+              tbl.name.likeExp(const d.Constant('%pie')),
+              tbl.name.likeExp(const d.Constant('%berry'))
+            ])))
+      .get();
   debugPrint('products6 = $products6');
+
+  int catId = 3;
+  final products7 = await (database.select(database.productCategoryLinks)
+      .join([
+        d.innerJoin(database.products,
+            database.productCategoryLinks.pLocalProdId
+            .equalsExp(database.products.id)
+        )
+  ])..where(database.productCategoryLinks.pLocalCatId.equals(catId)))
+  .map<Product>((e) => e.readTable(database.products))
+  .get();
+  debugPrint('products7 = $products7');
 }
 
 class MyApp extends StatelessWidget {
