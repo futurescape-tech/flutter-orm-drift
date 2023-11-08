@@ -169,6 +169,85 @@ Future<void> addProducts() async {
       sku: const d.Value('P21')));
 }
 
+Future<void> addProductCategoryLinks() async {
+  await database.into(database.productCategoryLinks)
+      .insert(ProductCategoryLinksCompanion.insert(
+      pLocalCatId: 1,
+      pLocalProdId: 1));
+  await database.into(database.productCategoryLinks)
+      .insert(ProductCategoryLinksCompanion.insert(
+      pLocalCatId: 1,
+      pLocalProdId: 2));
+  await database.into(database.productCategoryLinks)
+      .insert(ProductCategoryLinksCompanion.insert(
+      pLocalCatId: 1,
+      pLocalProdId: 3));
+
+  await database.into(database.productCategoryLinks)
+      .insert(ProductCategoryLinksCompanion.insert(
+      pLocalCatId: 2,
+      pLocalProdId: 4));
+  await database.into(database.productCategoryLinks)
+      .insert(ProductCategoryLinksCompanion.insert(
+      pLocalCatId: 2,
+      pLocalProdId: 5));
+  await database.into(database.productCategoryLinks)
+      .insert(ProductCategoryLinksCompanion.insert(
+      pLocalCatId: 2,
+      pLocalProdId: 6));
+  await database.into(database.productCategoryLinks)
+      .insert(ProductCategoryLinksCompanion.insert(
+      pLocalCatId: 2,
+      pLocalProdId: 7));
+
+  await database.into(database.productCategoryLinks)
+      .insert(ProductCategoryLinksCompanion.insert(
+      pLocalCatId: 3,
+      pLocalProdId: 8));
+  await database.into(database.productCategoryLinks)
+      .insert(ProductCategoryLinksCompanion.insert(
+      pLocalCatId: 3,
+      pLocalProdId: 9));
+  await database.into(database.productCategoryLinks)
+      .insert(ProductCategoryLinksCompanion.insert(
+      pLocalCatId: 3,
+      pLocalProdId: 10));
+  await database.into(database.productCategoryLinks)
+      .insert(ProductCategoryLinksCompanion.insert(
+      pLocalCatId: 3,
+      pLocalProdId: 11));
+  await database.into(database.productCategoryLinks)
+      .insert(ProductCategoryLinksCompanion.insert(
+      pLocalCatId: 3,
+      pLocalProdId: 12));
+  await database.into(database.productCategoryLinks)
+      .insert(ProductCategoryLinksCompanion.insert(
+      pLocalCatId: 3,
+      pLocalProdId: 13));
+
+  await database.into(database.productCategoryLinks)
+      .insert(ProductCategoryLinksCompanion.insert(
+      pLocalCatId: 4,
+      pLocalProdId: 15));
+  await database.into(database.productCategoryLinks)
+      .insert(ProductCategoryLinksCompanion.insert(
+      pLocalCatId: 4,
+      pLocalProdId: 17));
+}
+
+Future<void> addParkedBills() async {
+
+}
+
+Future<void> addParkedBillItems() async {
+
+}
+
+Future<void> addParkedBillItemTaxes() async {
+
+}
+
+
 Future<void> basicQueryTest1() async {
   final categories = await database.select(database.productCategories).get();
   debugPrint('categories = $categories');
