@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart' as d;
+import 'package:drift_example/src/daos/parked_bills_dao.dart';
 import 'package:drift_example/src/schemas/schemas.dart';
 import 'package:flutter/material.dart';
 
@@ -651,9 +652,60 @@ Future<void> basicQueryTest1() async {
             .equalsExp(database.products.id)
         )
   ])..where(database.productCategoryLinks.pLocalCatId.equals(catId)))
-  .map<Product>((e) => e.readTable(database.products))
+  .map<Product>((e) {
+    return e.readTable(database.products);
+  })
   .get();
   debugPrint('products7 = $products7');
+
+  final parkedBills = await ParkedBillsDao(database).getParkedBills();
+  debugPrint('parked bills = $parkedBills');
+
+  int pageSize = 3;
+  int page = 3;
+  int offset = pageSize * page;
+  final products8 = await ((database.select(database.products)
+  ..limit(pageSize, offset: offset)
+      // ..orderBy([
+      //   (t) => d.OrderingTerm.desc(t.name)
+      // ])
+  )).get();
+  debugPrint('products8 = $products8');
+
+  // int productId = 21;
+  // int count = await database.products.deleteWhere((tbl) => tbl.id.equals(productId));
+  // int count = await (database.delete(database.products)
+  //   ..where((tbl) => tbl.id.equals(productId)))
+  //     .go();
+  // debugPrint('Delete ProductId $productId, count = $count');
+
+  final products9 = await database.select(database.products).get();
+  debugPrint('products9 = $products9');
+
+  // int product10Id = 2;
+  // String product10Name = 'Strawberry Pie';
+  // double product10Price = 100;
+  // int count10 = await (database.update(database.products)
+  //   ..where((tbl) => tbl.id.equals(product10Id)))
+  // .write(ProductsCompanion(
+  //   name: d.Value<String>(product10Name),
+  //   price: d.Value<double>(product10Price),
+  // ));
+  // debugPrint('count10 = $count10');
+
+  int product11Id = 2;
+  String product11Name = 'Banana Pie';
+  double product11Price = 150;
+  List<Product> products11 = await (database.update(database.products)
+    ..where((tbl) => tbl.id.equals(product11Id)))
+      .writeReturning(ProductsCompanion(
+    name: d.Value<String>(product11Name),
+    price: d.Value<double>(product11Price),
+  ));
+  debugPrint('products11 = $products11');
+
+  final products12 = await database.select(database.products).get();
+  debugPrint('products12 = $products12');
 }
 
 class MyApp extends StatelessWidget {

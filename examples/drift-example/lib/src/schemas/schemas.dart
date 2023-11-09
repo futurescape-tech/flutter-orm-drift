@@ -5,6 +5,7 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:drift_example/src/tables/parked_bills.dart';
 import 'package:drift_example/src/tables/products.dart';
+import 'package:drift_example/src/daos/parked_bills_dao.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -17,7 +18,11 @@ part 'schemas.g.dart';
   ParkedBills,
   ParkedBillItems,
   ParkedBillItemTaxes
-])
+],
+daos: [
+  ParkedBillsDao
+]
+)
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
