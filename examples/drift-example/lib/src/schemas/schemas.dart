@@ -3,6 +3,9 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:drift_example/src/data/parked_bill.dart';
+import 'package:drift_example/src/data/parked_bill_item.dart';
+import 'package:drift_example/src/data/parked_bill_item_tax.dart';
 import 'package:drift_example/src/tables/parked_bills.dart';
 import 'package:drift_example/src/tables/products.dart';
 import 'package:drift_example/src/daos/parked_bills_dao.dart';

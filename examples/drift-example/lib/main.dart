@@ -1,5 +1,8 @@
 import 'package:drift/drift.dart' as d;
 import 'package:drift_example/src/daos/parked_bills_dao.dart';
+import 'package:drift_example/src/data/parked_bill.dart';
+import 'package:drift_example/src/data/parked_bill_item.dart';
+import 'package:drift_example/src/data/parked_bill_item_tax.dart';
 import 'package:drift_example/src/schemas/schemas.dart';
 import 'package:flutter/material.dart';
 
@@ -223,37 +226,37 @@ Future<void> addParkedBills() async {
   }
 
   await database.into(database.parkedBills).insert(ParkedBillsCompanion.insert(
-      billName: const d.Value('Wisconsin 101'),
+      name: 'Wisconsin 101',
       subtotal: const d.Value(500),
       netAmount: const d.Value(200),
       tax: const d.Value(20),
       discount: const d.Value(10)));
   await database.into(database.parkedBills).insert(ParkedBillsCompanion.insert(
-      billName: const d.Value('Florida 102'),
+      name: 'Florida 102',
       subtotal: const d.Value(500),
       netAmount: const d.Value(200),
       tax: const d.Value(20),
       discount: const d.Value(10)));
   await database.into(database.parkedBills).insert(ParkedBillsCompanion.insert(
-      billName: const d.Value('Illinois 103'),
+      name: 'Illinois 103',
       subtotal: const d.Value(500),
       netAmount: const d.Value(200),
       tax: const d.Value(20),
       discount: const d.Value(10)));
   await database.into(database.parkedBills).insert(ParkedBillsCompanion.insert(
-      billName: const d.Value('Washington 104'),
+      name: 'Washington 104',
       subtotal: const d.Value(500),
       netAmount: const d.Value(200),
       tax: const d.Value(20),
       discount: const d.Value(10)));
   await database.into(database.parkedBills).insert(ParkedBillsCompanion.insert(
-      billName: const d.Value('California 105'),
+      name: 'California 105',
       subtotal: const d.Value(500),
       netAmount: const d.Value(200),
       tax: const d.Value(20),
       discount: const d.Value(10)));
   await database.into(database.parkedBills).insert(ParkedBillsCompanion.insert(
-      billName: const d.Value('New Jersey 106'),
+      name: 'New Jersey 106',
       subtotal: const d.Value(500),
       netAmount: const d.Value(200),
       tax: const d.Value(20),
@@ -269,7 +272,7 @@ Future<void> addParkedBillItems() async {
   await database
       .into(database.parkedBillItems)
       .insert(ParkedBillItemsCompanion.insert(
-        pLocalBillId: 1,
+        locBillId: 1,
         name: 'Milwaukee',
         subtotal: const d.Value(500),
         netAmount: const d.Value(200),
@@ -280,7 +283,7 @@ Future<void> addParkedBillItems() async {
   await database
       .into(database.parkedBillItems)
       .insert(ParkedBillItemsCompanion.insert(
-        pLocalBillId: 1,
+        locBillId: 1,
         name: 'Madison',
         subtotal: const d.Value(500),
         netAmount: const d.Value(200),
@@ -292,7 +295,7 @@ Future<void> addParkedBillItems() async {
   await database
       .into(database.parkedBillItems)
       .insert(ParkedBillItemsCompanion.insert(
-        pLocalBillId: 2,
+        locBillId: 2,
         name: 'Miami',
         subtotal: const d.Value(500),
         netAmount: const d.Value(200),
@@ -303,7 +306,7 @@ Future<void> addParkedBillItems() async {
   await database
       .into(database.parkedBillItems)
       .insert(ParkedBillItemsCompanion.insert(
-        pLocalBillId: 2,
+        locBillId: 2,
         name: 'Orlando',
         subtotal: const d.Value(500),
         netAmount: const d.Value(200),
@@ -314,7 +317,7 @@ Future<void> addParkedBillItems() async {
   await database
       .into(database.parkedBillItems)
       .insert(ParkedBillItemsCompanion.insert(
-        pLocalBillId: 2,
+        locBillId: 2,
         name: 'Fort Lauderdale',
         subtotal: const d.Value(500),
         netAmount: const d.Value(200),
@@ -325,7 +328,7 @@ Future<void> addParkedBillItems() async {
   await database
       .into(database.parkedBillItems)
       .insert(ParkedBillItemsCompanion.insert(
-        pLocalBillId: 2,
+        locBillId: 2,
         name: 'Tampa',
         subtotal: const d.Value(500),
         netAmount: const d.Value(200),
@@ -336,7 +339,7 @@ Future<void> addParkedBillItems() async {
   await database
       .into(database.parkedBillItems)
       .insert(ParkedBillItemsCompanion.insert(
-        pLocalBillId: 2,
+        locBillId: 2,
         name: 'Daytona',
         subtotal: const d.Value(500),
         netAmount: const d.Value(200),
@@ -348,7 +351,7 @@ Future<void> addParkedBillItems() async {
   await database
       .into(database.parkedBillItems)
       .insert(ParkedBillItemsCompanion.insert(
-        pLocalBillId: 3,
+        locBillId: 3,
         name: 'Chicago',
         subtotal: const d.Value(500),
         netAmount: const d.Value(200),
@@ -360,7 +363,7 @@ Future<void> addParkedBillItems() async {
   await database
       .into(database.parkedBillItems)
       .insert(ParkedBillItemsCompanion.insert(
-        pLocalBillId: 4,
+        locBillId: 4,
         name: 'Seattle',
         subtotal: const d.Value(500),
         netAmount: const d.Value(200),
@@ -371,7 +374,7 @@ Future<void> addParkedBillItems() async {
   await database
       .into(database.parkedBillItems)
       .insert(ParkedBillItemsCompanion.insert(
-        pLocalBillId: 4,
+        locBillId: 4,
         name: 'Everett',
         subtotal: const d.Value(500),
         netAmount: const d.Value(200),
@@ -383,7 +386,7 @@ Future<void> addParkedBillItems() async {
   await database
       .into(database.parkedBillItems)
       .insert(ParkedBillItemsCompanion.insert(
-        pLocalBillId: 5,
+        locBillId: 5,
         name: 'San Francisco',
         subtotal: const d.Value(500),
         netAmount: const d.Value(200),
@@ -394,7 +397,7 @@ Future<void> addParkedBillItems() async {
   await database
       .into(database.parkedBillItems)
       .insert(ParkedBillItemsCompanion.insert(
-        pLocalBillId: 5,
+        locBillId: 5,
         name: 'Los Angeles',
         subtotal: const d.Value(500),
         netAmount: const d.Value(200),
@@ -405,7 +408,7 @@ Future<void> addParkedBillItems() async {
   await database
       .into(database.parkedBillItems)
       .insert(ParkedBillItemsCompanion.insert(
-        pLocalBillId: 5,
+        locBillId: 5,
         name: 'San Diego',
         subtotal: const d.Value(500),
         netAmount: const d.Value(200),
@@ -416,7 +419,7 @@ Future<void> addParkedBillItems() async {
   await database
       .into(database.parkedBillItems)
       .insert(ParkedBillItemsCompanion.insert(
-        pLocalBillId: 5,
+        locBillId: 5,
         name: 'San Jose',
         subtotal: const d.Value(500),
         netAmount: const d.Value(200),
@@ -427,7 +430,7 @@ Future<void> addParkedBillItems() async {
   await database
       .into(database.parkedBillItems)
       .insert(ParkedBillItemsCompanion.insert(
-        pLocalBillId: 5,
+        locBillId: 5,
         name: 'Danville',
         subtotal: const d.Value(500),
         netAmount: const d.Value(200),
@@ -438,7 +441,7 @@ Future<void> addParkedBillItems() async {
   await database
       .into(database.parkedBillItems)
       .insert(ParkedBillItemsCompanion.insert(
-        pLocalBillId: 5,
+        locBillId: 5,
         name: 'Glendale',
         subtotal: const d.Value(500),
         netAmount: const d.Value(200),
@@ -449,140 +452,84 @@ Future<void> addParkedBillItems() async {
 }
 
 Future<void> addParkedBillItemTaxes() async {
-  final parkedBillItemTaxes = await database.select(database.parkedBillItemTaxes).get();
+  final parkedBillItemTaxes =
+      await database.select(database.parkedBillItemTaxes).get();
   if (parkedBillItemTaxes.isNotEmpty) {
     return;
   }
 
   await database.into(database.parkedBillItemTaxes).insert(
       ParkedBillItemTaxesCompanion.insert(
-          pLocalItemId: 1,
-          name: 'GST 12',
-          method: 'exclusive',
-          tax: const d.Value(10)));
+          locTaxId: 2, locItemId: 1, name: 'GST 12', tax: const d.Value(10)));
   await database.into(database.parkedBillItemTaxes).insert(
       ParkedBillItemTaxesCompanion.insert(
-          pLocalItemId: 1,
-          name: 'GST 5',
-          method: 'exclusive',
-          tax: const d.Value(5)));
+          locTaxId: 1, locItemId: 1, name: 'GST 5', tax: const d.Value(5)));
   await database.into(database.parkedBillItemTaxes).insert(
       ParkedBillItemTaxesCompanion.insert(
-          pLocalItemId: 1,
-          name: 'GST 9',
-          method: 'exclusive',
-          tax: const d.Value(12)));
+          locTaxId: 4, locItemId: 1, name: 'GST 9', tax: const d.Value(12)));
 
   await database.into(database.parkedBillItemTaxes).insert(
       ParkedBillItemTaxesCompanion.insert(
-          pLocalItemId: 2,
-          name: 'GST 12',
-          method: 'exclusive',
-          tax: const d.Value(10)));
+          locTaxId: 2, locItemId: 2, name: 'GST 12', tax: const d.Value(10)));
 
   await database.into(database.parkedBillItemTaxes).insert(
       ParkedBillItemTaxesCompanion.insert(
-          pLocalItemId: 3,
-          name: 'GST 12',
-          method: 'exclusive',
-          tax: const d.Value(10)));
+          locTaxId: 2, locItemId: 3, name: 'GST 12', tax: const d.Value(10)));
 
   await database.into(database.parkedBillItemTaxes).insert(
       ParkedBillItemTaxesCompanion.insert(
-          pLocalItemId: 4,
-          name: 'GST 12',
-          method: 'exclusive',
-          tax: const d.Value(10)));
+          locTaxId: 2, locItemId: 4, name: 'GST 12', tax: const d.Value(10)));
 
   await database.into(database.parkedBillItemTaxes).insert(
       ParkedBillItemTaxesCompanion.insert(
-          pLocalItemId: 5,
-          name: 'GST 12',
-          method: 'exclusive',
-          tax: const d.Value(10)));
+          locTaxId: 2, locItemId: 5, name: 'GST 12', tax: const d.Value(10)));
 
   await database.into(database.parkedBillItemTaxes).insert(
       ParkedBillItemTaxesCompanion.insert(
-          pLocalItemId: 6,
-          name: 'GST 12',
-          method: 'exclusive',
-          tax: const d.Value(10)));
+          locTaxId: 2, locItemId: 6, name: 'GST 12', tax: const d.Value(10)));
 
   await database.into(database.parkedBillItemTaxes).insert(
       ParkedBillItemTaxesCompanion.insert(
-          pLocalItemId: 7,
-          name: 'GST 12',
-          method: 'exclusive',
-          tax: const d.Value(10)));
+          locTaxId: 2, locItemId: 7, name: 'GST 12', tax: const d.Value(10)));
 
   await database.into(database.parkedBillItemTaxes).insert(
       ParkedBillItemTaxesCompanion.insert(
-          pLocalItemId: 8,
-          name: 'GST 12',
-          method: 'exclusive',
-          tax: const d.Value(10)));
+          locTaxId: 2, locItemId: 8, name: 'GST 12', tax: const d.Value(10)));
 
   await database.into(database.parkedBillItemTaxes).insert(
       ParkedBillItemTaxesCompanion.insert(
-          pLocalItemId: 9,
-          name: 'GST 12',
-          method: 'exclusive',
-          tax: const d.Value(10)));
+          locTaxId: 2, locItemId: 9, name: 'GST 12', tax: const d.Value(10)));
 
   await database.into(database.parkedBillItemTaxes).insert(
       ParkedBillItemTaxesCompanion.insert(
-          pLocalItemId: 10,
-          name: 'GST 12',
-          method: 'exclusive',
-          tax: const d.Value(10)));
+          locTaxId: 2, locItemId: 10, name: 'GST 12', tax: const d.Value(10)));
 
   await database.into(database.parkedBillItemTaxes).insert(
       ParkedBillItemTaxesCompanion.insert(
-          pLocalItemId: 11,
-          name: 'GST 12',
-          method: 'exclusive',
-          tax: const d.Value(10)));
+          locTaxId: 2, locItemId: 11, name: 'GST 12', tax: const d.Value(10)));
 
   await database.into(database.parkedBillItemTaxes).insert(
       ParkedBillItemTaxesCompanion.insert(
-          pLocalItemId: 12,
-          name: 'GST 12',
-          method: 'exclusive',
-          tax: const d.Value(10)));
+          locTaxId: 2, locItemId: 12, name: 'GST 12', tax: const d.Value(10)));
   await database.into(database.parkedBillItemTaxes).insert(
       ParkedBillItemTaxesCompanion.insert(
-          pLocalItemId: 12,
-          name: 'GST 18',
-          method: 'exclusive',
-          tax: const d.Value(20)));
+          locTaxId: 3, locItemId: 12, name: 'GST 18', tax: const d.Value(20)));
 
   await database.into(database.parkedBillItemTaxes).insert(
       ParkedBillItemTaxesCompanion.insert(
-          pLocalItemId: 13,
-          name: 'GST 12',
-          method: 'exclusive',
-          tax: const d.Value(10)));
+          locTaxId: 2, locItemId: 13, name: 'GST 12', tax: const d.Value(10)));
 
   await database.into(database.parkedBillItemTaxes).insert(
       ParkedBillItemTaxesCompanion.insert(
-          pLocalItemId: 14,
-          name: 'GST 12',
-          method: 'exclusive',
-          tax: const d.Value(10)));
+          locTaxId: 2, locItemId: 14, name: 'GST 12', tax: const d.Value(10)));
 
   await database.into(database.parkedBillItemTaxes).insert(
       ParkedBillItemTaxesCompanion.insert(
-          pLocalItemId: 15,
-          name: 'GST 12',
-          method: 'exclusive',
-          tax: const d.Value(10)));
+          locTaxId: 2, locItemId: 15, name: 'GST 12', tax: const d.Value(10)));
 
   await database.into(database.parkedBillItemTaxes).insert(
       ParkedBillItemTaxesCompanion.insert(
-          pLocalItemId: 16,
-          name: 'GST 12',
-          method: 'exclusive',
-          tax: const d.Value(10)));
+          locTaxId: 2, locItemId: 16, name: 'GST 12', tax: const d.Value(10)));
 }
 
 Future<void> basicQueryTest1() async {
@@ -596,10 +543,10 @@ Future<void> basicQueryTest1() async {
   debugPrint('category names = $categoryNames');
 
   int categoryId = 1;
-  final catagory = await (database.select(database.productCategories)
+  final category = await (database.select(database.productCategories)
         ..where((tbl) => tbl.id.equals(categoryId)))
       .getSingleOrNull();
-  debugPrint('category = $catagory');
+  debugPrint('category = $category');
 
   final products = await database.select(database.products).get();
   debugPrint('products = $products');
@@ -645,17 +592,16 @@ Future<void> basicQueryTest1() async {
   debugPrint('products6 = $products6');
 
   int catId = 3;
-  final products7 = await (database.select(database.productCategoryLinks)
-      .join([
-        d.innerJoin(database.products,
-            database.productCategoryLinks.pLocalProdId
-            .equalsExp(database.products.id)
-        )
-  ])..where(database.productCategoryLinks.pLocalCatId.equals(catId)))
-  .map<Product>((e) {
+  final products7 = await (database.select(database.productCategoryLinks).join([
+    d.innerJoin(
+        database.products,
+        database.productCategoryLinks.pLocalProdId
+            .equalsExp(database.products.id))
+  ])
+        ..where(database.productCategoryLinks.pLocalCatId.equals(catId)))
+      .map<Product>((e) {
     return e.readTable(database.products);
-  })
-  .get();
+  }).get();
   debugPrint('products7 = $products7');
 
   final parkedBills = await ParkedBillsDao(database).getParkedBills();
@@ -665,11 +611,12 @@ Future<void> basicQueryTest1() async {
   int page = 3;
   int offset = pageSize * page;
   final products8 = await ((database.select(database.products)
-  ..limit(pageSize, offset: offset)
-      // ..orderBy([
-      //   (t) => d.OrderingTerm.desc(t.name)
-      // ])
-  )).get();
+            ..limit(pageSize, offset: offset)
+          // ..orderBy([
+          //   (t) => d.OrderingTerm.desc(t.name)
+          // ])
+          ))
+      .get();
   debugPrint('products8 = $products8');
 
   // int productId = 21;
@@ -677,6 +624,9 @@ Future<void> basicQueryTest1() async {
   // int count = await (database.delete(database.products)
   //   ..where((tbl) => tbl.id.equals(productId)))
   //     .go();
+  // List<Product> deletedProducts = await (database.delete(database.products)
+  //       ..where((tbl) => tbl.id.equalsExp(d.Variable<int>(productId))))
+  //     .goAndReturn();
   // debugPrint('Delete ProductId $productId, count = $count');
 
   final products9 = await database.select(database.products).get();
@@ -697,7 +647,7 @@ Future<void> basicQueryTest1() async {
   String product11Name = 'Banana Pie';
   double product11Price = 150;
   List<Product> products11 = await (database.update(database.products)
-    ..where((tbl) => tbl.id.equals(product11Id)))
+        ..where((tbl) => tbl.id.equals(product11Id)))
       .writeReturning(ProductsCompanion(
     name: d.Value<String>(product11Name),
     price: d.Value<double>(product11Price),
@@ -706,6 +656,33 @@ Future<void> basicQueryTest1() async {
 
   final products12 = await database.select(database.products).get();
   debugPrint('products12 = $products12');
+
+  final parkedBills1 = await ParkedBillsDao(database).getParkedBills();
+  debugPrint('parkedBills = $parkedBills1');
+
+  AddParkedBillParams params =
+      AddParkedBillParams(items: <AddParkedBillItemParams>[
+    AddParkedBillItemParams(
+        name: 'Huntsville',
+        quantity: 2,
+        taxes: <AddParkedBillItemTaxParams>[
+          AddParkedBillItemTaxParams(locTaxId: 3, name: 'GST 18')
+        ]),
+    AddParkedBillItemParams(
+        name: 'Mobile',
+        quantity: 1,
+        taxes: <AddParkedBillItemTaxParams>[
+          AddParkedBillItemTaxParams(locTaxId: 2, name: 'GST 12'),
+          AddParkedBillItemTaxParams(locTaxId: 4, name: 'GST 9')
+        ])
+      ]);
+
+  ParkedBill? parkedBill2 = await ParkedBillsDao(database).createParkedBill(params: params);
+  debugPrint('parkedBill2 = $parkedBill2');
+
+  List<ParkedBill>? parkedBills3 =
+      await ParkedBillsDao(database).getParkedBills();
+  debugPrint('parkedBills3 = $parkedBills3');
 }
 
 class MyApp extends StatelessWidget {
