@@ -723,7 +723,7 @@ Future<void> basicQueryTest1() async {
   // .goAndReturn();
   // debugPrint('deletedItems = $deletedItems');
 
-  int parkedBillId4 = 5;
+  int parkedBillId4 = 2;
   List<ParkedBillItemTax> taxes4 =
       await (database.select(database.parkedBillItemTaxes)
             ..where((tbl) => tbl.locItemId.isInQuery(
