@@ -675,14 +675,98 @@ Future<void> basicQueryTest1() async {
           AddParkedBillItemTaxParams(locTaxId: 2, name: 'GST 12'),
           AddParkedBillItemTaxParams(locTaxId: 4, name: 'GST 9')
         ])
-      ]);
+  ]);
 
-  ParkedBill? parkedBill2 = await ParkedBillsDao(database).createParkedBill(params: params);
-  debugPrint('parkedBill2 = $parkedBill2');
+  // ParkedBill? parkedBill2 =
+  //     await ParkedBillsDao(database).createParkedBill(params: params);
+  // debugPrint('parkedBill2 = $parkedBill2');
 
   List<ParkedBill>? parkedBills3 =
       await ParkedBillsDao(database).getParkedBills();
   debugPrint('parkedBills3 = $parkedBills3');
+
+  // await database
+  //     .into(database.parkedBillItems)
+  //     .insert(ParkedBillItemsCompanion.insert(
+  //   locBillId: 5,
+  //   name: 'ABC',
+  //   subtotal: const d.Value(500),
+  //   netAmount: const d.Value(200),
+  //   tax: const d.Value(20),
+  //   discount: const d.Value(10),
+  //   quantity: const d.Value(1),
+  // ));
+  // await database
+  //     .into(database.parkedBillItems)
+  //     .insert(ParkedBillItemsCompanion.insert(
+  //   locBillId: 5,
+  //   name: 'DEF',
+  //   subtotal: const d.Value(500),
+  //   netAmount: const d.Value(200),
+  //   tax: const d.Value(20),
+  //   discount: const d.Value(10),
+  //   quantity: const d.Value(1),
+  // ));
+
+  // await database.into(database.parkedBillItemTaxes).insert(
+  //       ParkedBillItemTaxesCompanion.insert(
+  //           locTaxId: 2, locItemId: 25, name: 'GST 12', tax: const d.Value(10)));
+  //   await database.into(database.parkedBillItemTaxes).insert(
+  //       ParkedBillItemTaxesCompanion.insert(
+  //           locTaxId: 3, locItemId: 25, name: 'GST 18', tax: const d.Value(20)));
+  //   await database.into(database.parkedBillItemTaxes).insert(
+  //       ParkedBillItemTaxesCompanion.insert(
+  //           locTaxId: 4, locItemId: 26, name: 'GST 9', tax: const d.Value(20)));
+  
+  // List<ParkedBillItem> deletedItems = await (database.delete(database.parkedBillItems)
+  // ..where((tbl) => tbl.id.isIn(<int>[25, 26])))
+  // .goAndReturn();
+  // debugPrint('deletedItems = $deletedItems');
+
+  int parkedBillId4 = 5;
+  List<ParkedBillItemTax> taxes4 =
+      await (database.select(database.parkedBillItemTaxes)
+            ..where((tbl) => tbl.locItemId.isInQuery(
+                database.selectOnly(database.parkedBillItems)
+                  ..addColumns([database.parkedBillItems.id])
+                  ..where(database.parkedBillItems.locBillId.equals(parkedBillId4))
+      ))).get();
+  debugPrint('taxes4 = $taxes4');
+
+  var parkedBillsTable = database.alias(database.parkedBills, 'bills');
+  final query = database.selectOnly(parkedBillsTable)
+  ..addColumns([
+    parkedBillsTable.id,
+    parkedBillsTable.name
+  ]);
+
+  List<ParkedBill> bills = await query.map<ParkedBill>((row) {
+    return ParkedBill(
+        id: row.rawData.data['bills.id'],
+        name: row.rawData.data['bills.name'],
+        subtotal: 0, tax: 0, discount: 0, netAmount: 0);
+  }).get();
+
+  debugPrint('bills = $bills');
+
+  var parkedBillsTable1 = database.alias(database.parkedBills, 'bills');
+  final query1 = database.selectOnly(parkedBillsTable1)
+  ..addColumns([
+    parkedBillsTable1.id
+  ]);
+
+  List<int> ids1 = await query1
+      .map<int>((row) => row.rawData.data['bills.id']).get();
+  debugPrint('ids1 = $ids1');
+
+  final query2 = database.selectOnly(database.parkedBills)
+    ..addColumns([
+      database.parkedBills.id
+    ]);
+
+  List<int> ids2 = await query2
+      .map<int>((row) => row.rawData.data['parked_bills.id']).get();
+  debugPrint('ids2 = $ids2');
 }
 
 class MyApp extends StatelessWidget {
