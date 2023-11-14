@@ -733,6 +733,20 @@ Future<void> basicQueryTest1() async {
       ))).get();
   debugPrint('taxes4 = $taxes4');
 
+
+
+  int parkedBillId5 = 5;
+  var parkedBillItems5 = database.alias(database.parkedBillItems, 'bill_items');
+  var parkedBillItemTaxes5 = database.alias(database.parkedBillItemTaxes, 'bill_item_taxes');
+  List<ParkedBillItemTax> taxes5 =
+  await (database.select(parkedBillItemTaxes5)
+    ..where((tbl) => tbl.locItemId.isInQuery(
+        database.selectOnly(parkedBillItems5)
+          ..addColumns([parkedBillItems5.id])
+          ..where(parkedBillItems5.locBillId.equals(parkedBillId5))
+    ))).get();
+  debugPrint('taxes5 = $taxes5');
+
   var parkedBillsTable = database.alias(database.parkedBills, 'bills');
   final query = database.selectOnly(parkedBillsTable)
   ..addColumns([
